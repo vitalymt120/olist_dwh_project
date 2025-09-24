@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # Наше хранилище данных
+  postgres_dwh:
+    image: postgres:13
+    container_name: postgres_dwh
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=dwh
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Сохраняем данные между перезапусками
+      - ./data:/data_import
+
+  # Наш BI-инструмент
+  superset:
+    image: amancevice/superset:latest
+    container_name: superset_bi
+    ports:
+      - "8088:8088"
+    depends_on:
+      - postgres_dwh
+    environment:
+      - SUPERSET_SECRET_KEY=your_strong_secret_key # Придумай любой сложный ключ
+      - SUPERSET_LOAD_EXAMPLES=no
+
+volumes:
+  postgres_data:

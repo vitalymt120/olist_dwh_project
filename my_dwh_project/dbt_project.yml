@@ -1,0 +1,39 @@
+﻿# Название твоего проекта
+name: 'my_dwh_project'
+version: '1.0.0'
+config-version: 2
+
+# Имя твоего профиля из profiles.yml
+profile: 'my_dwh_project'
+
+# Пути к файлам
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# --- КОНФИГУРАЦИЯ МОДЕЛЕЙ ДЛЯ РАЗНЫХ СХЕМ ---
+# Этот блок указывает dbt, в какую схему помещать модели
+# в зависимости от того, в какой папке они лежат.
+models:
+  my_dwh_project: # Убедись, что это имя совпадает с 'name' вверху файла
+    # Модели из папки 'staging' попадут в схему 'dwh_staging'
+    staging:
+      +schema: dwh_staging
+      +materialized: view
+
+    # Модели из папки 'core' попадут в схему 'dwh_core'
+    core:
+      +schema: dwh_core
+      +materialized: view
+
+    # Модели из папки 'marts' попадут в схему 'dwh_marts'
+    marts:
+      +schema: dwh_marts
+      +materialized: view
