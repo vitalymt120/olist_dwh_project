@@ -42,7 +42,7 @@
 
 1.  **Клонировать репозиторий:**
     ```bash
-    git clone https://github.com/[ТВОЙ_НИК]/dwh-olist-analytics.git
+    git clone https://github.com/vitalymt120/olist_dwh_project
     cd dwh-olist-analytics
     ```
 2.  **Запустить Docker-контейнеры:**
